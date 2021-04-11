@@ -7,9 +7,10 @@ public class Main {
         Scanner scanner2 = new Scanner(System.in);
 
         String status = "None";
-        while(!status.equals('X') || !status.equals('O') || !status.equals("Draw")) {
+        while(!status.equals("X") && !status.equals("O") && !status.equals("Draw")) {
             status = input(board, scanner1, scanner2);
             System.out.println("current status is: " + status);
+            if(status.equals("X")) System.out.println("status confirm as X");
         }
 
         scanner1.close();
