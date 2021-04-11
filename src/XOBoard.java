@@ -1,6 +1,6 @@
 public class XOBoard implements board {
 
-    private char[][] mat;
+    private String[][] mat;
     private static int default_size = 3;
 
     /**
@@ -8,7 +8,7 @@ public class XOBoard implements board {
      * the board size will be 3*3
      */
     public XOBoard() {
-        this.mat = new char[default_size][default_size];
+        this.mat = new String[default_size][default_size];
     }
 
     /**
@@ -16,7 +16,7 @@ public class XOBoard implements board {
      * by given size n and m - the board size will be n*m
      */
     public XOBoard(int n, int m) {
-        this.mat = new char[n][m];
+        this.mat = new String[n][m];
     }
 
     /**
@@ -24,7 +24,7 @@ public class XOBoard implements board {
      * by giver size n - board size will be n*n
      */
     public XOBoard(int n) {
-        this.mat = new char[n][n];
+        this.mat = new String[n][n];
     }
 
     /**
@@ -37,10 +37,12 @@ public class XOBoard implements board {
      */
     @Override
     public boolean put(int i, int j, char c) {
-        if(i > this.mat.length || j > this.mat[0].length || this.mat[i][j] != ' ') {
+        if(i > this.mat.length || j > this.mat[0].length ) {
+            return false;
+        } else if(this.mat[i][j] != null) {
             return false;
         } else {
-            this.mat[i][j] = c;
+            this.mat[i][j] = c + "";
             return true;
         }
     }
@@ -58,8 +60,10 @@ public class XOBoard implements board {
         for(int i = 0; i < this.mat.length; i++) {
             for(int j = 0; j < this.mat[i].length; j++) {
 
-                if(mat[i][j] == 'X') counterX++;
-                else if(mat[i][j] == 'O') counterO++;
+                if(this.mat[i][j] == null) continue;
+
+                if(this.mat[i][j].equals('X')) counterX++;
+                else if(this.mat[i][j].equals('O')) counterO++;
 
                 if(counterX == this.mat.length) return "X";
                 else if(counterO == this.mat.length) return "O";
@@ -76,8 +80,10 @@ public class XOBoard implements board {
         for(int j = 0; j < this.mat[0].length; j++) {
             for(int i = 0; i < this.mat.length; i++) {
 
-                if(mat[i][j] == 'X') counterX++;
-                else if(mat[i][j] == 'O') counterO++;
+                if(this.mat[i][j] == null) continue;
+
+                if(mat[i][j].equals('X')) counterX++;
+                else if(mat[i][j].equals('O')) counterO++;
 
                 if(counterX == this.mat.length) return "X";
                 else if(counterO == this.mat.length) return "O";
@@ -92,26 +98,33 @@ public class XOBoard implements board {
 
         // checking diagonal top-left to bottom-right
         for(int i = 0; i < this.mat.length; i++) {
-            for(int j = 0; i < this.mat[0].length; j++) {
+            for(int j = 0; j < this.mat[0].length; j++) {
 
-                if(this.mat[i][j] == 'X' && i == j) counterX++;
-                else if(this.mat[i][j] == 'O' && i == j) counterO++;
+                if(this.mat[i][j] == null) continue;
+
+                if(this.mat[i][j].equals('X') && i == j) counterX++;
+                else if(this.mat[i][j].equals('O') && i == j) counterO++;
 
 
             }
         }
         // checking diagonal bottom-left to top-right
-        return null;
+        return "None";
     }
 
     @Override
     public void display() {
         for(int i = 0; i < this.mat.length; i++) {
             for(int j = 0; j < this.mat[i].length; j++) {
-                if(this.mat[i][j] == ' ') System.out.print(' ');
-                else System.out.print(this.mat[i][j]);
+                if(j == 0) System.out.print("| ");
+                if(this.mat[i][j] == null) System.out.print("  | ");
+                else System.out.print(this.mat[i][j] + " | ");
             }
-            System.out.println("\n");
+            System.out.println();
+            for(int k = 0; k < this.mat.length; k++) {
+                System.out.print("____");
+            }
+            System.out.println();
         }
     }
 }
