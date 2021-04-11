@@ -31,8 +31,9 @@ public class XOBoard implements board {
      */
     @Override
     public boolean put(int i, int j, char c) {
-        if(i > this.n || j > this.n ) return false;
+        if(i + 1 > this.n || j + 1 > this.n ) return false;
         else if(this.mat[i][j] != null) return false;
+        else if(c != 'X' && c != 'O') return false;
         else {
             this.mat[i][j] = c + "";
             return true;
@@ -56,20 +57,11 @@ public class XOBoard implements board {
 
                 if(this.mat[i][j] == null) continue;
 
-                if(this.mat[i][j].equals("X")) {
-                    counterX++;
-                }
-                else if(this.mat[i][j].equals("O")) {
-                    System.out.println("found O at: " + i + " : " + j);
-                    counterO++;
-                }
+                if(this.mat[i][j].equals("X")) counterX++;
+                else if(this.mat[i][j].equals("O")) counterO++;
 
                 if(counterX == this.n) return "X";
                 else if(counterO == this.n) return "O";
-
-                System.out.println("counterX = " + counterX);
-                System.out.println("counterO = " + counterO);
-
             }
             counterX = 0;
             counterO = 0;
@@ -81,7 +73,6 @@ public class XOBoard implements board {
         // checking vertical
         for(int j = 0; j < this.n; j++) {
             for(int i = 0; i < this.n; i++) {
-
                 if(this.mat[i][j] == null) continue;
 
                 if(mat[i][j].equals("X")) counterX++;
@@ -89,7 +80,6 @@ public class XOBoard implements board {
 
                 if(counterX == this.n) return "X";
                 else if(counterO == this.n) return "O";
-
             }
             counterX = 0;
             counterO = 0;
@@ -100,18 +90,29 @@ public class XOBoard implements board {
 
         // checking diagonal top-left to bottom-right
         for(int i = 0; i < this.n; i++) {
-            for(int j = 0; j < this.n; j++) {
+            if(this.mat[i][i] == null) continue;
 
-                if(this.mat[i][j] == null) continue;
+            if(this.mat[i][i].equals("X")) counterX++;
+            else if(this.mat[i][i].equals("O")) counterO++;
 
-                if(this.mat[i][j].equals("X") && i == j) counterX++;
-                else if(this.mat[i][j].equals("O") && i == j) counterO++;
-
-                if(counterX == this.n) return "X";
-                else if(counterO == this.n) return "O";
-            }
+            if(counterX == this.n) return "X";
+            else if(counterO == this.n) return "O";
         }
-        // checking diagonal bottom-left to top-right
+
+        counterX = 0;
+        counterO = 0;
+
+        // checking diagonal top-left to bottom-right
+        for(int i = 0; i < this.n; i++) {
+            if(this.mat[i][this.n - i - 1] == null) continue;
+
+            if(this.mat[i][this.n - i - 1].equals("X")) counterX++;
+            else if(this.mat[i][this.n - i - 1].equals("O")) counterO++;
+
+            if(counterX == this.n) return "X";
+            else if(counterO == this.n) return "O";
+        }
+
         return "None";
     }
 
