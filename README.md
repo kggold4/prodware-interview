@@ -2,7 +2,7 @@
 ### <i>By Kfir Goldfarb</i>
 This project is a dynamic tic-tac-toe game build with java, running on the console.
 
-## <i>Playing the game:</i>
+## <i>Playing the game: (running main program)</i>
 first enter the size of the board:
 
 
