@@ -1,2 +1,2 @@
-## Prodware Interview Code
+## Tic-Tac-Toe Java Game
 ### <i>By Kfir Goldfarb</i>
